@@ -1,12 +1,13 @@
 import 'package:cine_quest_app/routes/routes_constants.dart';
 import 'package:cine_quest_app/screens/destinations_data.dart';
 import 'package:cine_quest_app/screens/main_scaffold.dart';
+import 'package:cine_quest_app/screens/media_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 final routes = GoRouter(
-  errorBuilder: (context, state) => const Placeholder(
-    child: Text('Error page'),
+  errorBuilder: (context, state) => Placeholder(
+    child: Text(state.error?.message ?? ''),
   ),
   initialLocation: root,
   routes: <RouteBase>[
@@ -28,8 +29,8 @@ final routes = GoRouter(
     GoRoute(
       path: '${root}media/:id',
       name: 'media',
-      builder: (context, state) => Placeholder(
-        child: Text('Media page with ${state.pathParameters['id']} id.'),
+      builder: (context, state) => MediaScaffold(
+        mediaId: int.parse(state.pathParameters['id']!),
       ),
     ),
   ],

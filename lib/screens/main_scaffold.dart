@@ -1,4 +1,5 @@
 import 'package:cine_quest_app/screens/destinations_data.dart';
+import 'package:cine_quest_app/screens/home/home_body.dart';
 import 'package:flutter/material.dart';
 
 class MainScaffold extends StatefulWidget {
@@ -25,9 +26,7 @@ class _MainScaffoldState extends State<MainScaffold> {
   }
 
   Widget get bodyContent => switch (_selectedIndex) {
-        0 => const Placeholder(
-            child: Text('Home'),
-          ),
+        0 => const HomeBody(),
         1 => const Placeholder(
             child: Text('Favorites'),
           ),
@@ -52,7 +51,10 @@ class _MainScaffoldState extends State<MainScaffold> {
         backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
         leading: const Icon(Icons.movie_creation_outlined),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search_outlined)),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.refresh_outlined),
+          ),
         ],
       ),
       body: !isCompactWindowSize
