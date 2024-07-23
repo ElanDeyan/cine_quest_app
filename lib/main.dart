@@ -1,3 +1,4 @@
+import 'package:cine_quest_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,12 +10,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+    return MaterialApp.router(
+      routerConfig: routes,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.yellow,
+          brightness: Brightness.dark,
         ),
       ),
+      title: 'Cine quest',
     );
   }
 }
