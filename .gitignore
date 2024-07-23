@@ -1,3 +1,10 @@
+# Env
+.env
+env.g.dart
+
+# Dev
+notes.md
+
 # Miscellaneous
 *.class
 *.log
