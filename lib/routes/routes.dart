@@ -1,7 +1,7 @@
 import 'package:cine_quest_app/routes/routes_constants.dart';
 import 'package:cine_quest_app/screens/destinations_data.dart';
 import 'package:cine_quest_app/screens/main_scaffold.dart';
-import 'package:cine_quest_app/screens/media_scaffold.dart';
+import 'package:cine_quest_app/screens/media_details/media_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
