@@ -34,7 +34,7 @@ class _MovieTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.goNamed('media', pathParameters: {'id': '$id'}),
+      onTap: () => context.pushNamed('media', pathParameters: {'id': '$id'}),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
