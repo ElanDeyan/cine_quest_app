@@ -1,4 +1,5 @@
 import 'package:cine_quest_app/screens/destinations_data.dart';
+import 'package:cine_quest_app/screens/favorites/favorites_body.dart';
 import 'package:cine_quest_app/screens/home/home_body.dart';
 import 'package:flutter/material.dart';
 
@@ -27,9 +28,7 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   Widget get bodyContent => switch (_selectedIndex) {
         0 => const HomeBody(),
-        1 => const Placeholder(
-            child: Text('Favorites'),
-          ),
+        1 => const FavoritesBody(),
         _ => const Placeholder(
             child: Text('Unsupported location index'),
           )
