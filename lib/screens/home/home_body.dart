@@ -34,15 +34,18 @@ class HomeBody extends StatelessWidget {
           const SizedBox(
             height: 10.0,
           ),
+          const SizedBox(
+            height: 10.0,
+          ),
           HorizontalScrollableSection(
             header: Text(
-              'Favorites',
+              'Favoritos',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             items: sampleItems,
             verticalGap: 10,
-            rowMaxHeight: 274,
             itemBuilder: (context, index) => sampleItems[index],
+            rowMaxHeight: 274,
           ),
           const SizedBox(
             height: 10,
