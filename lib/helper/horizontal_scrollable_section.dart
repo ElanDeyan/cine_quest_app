@@ -5,14 +5,14 @@ final class HorizontalScrollableSection extends StatelessWidget {
     super.key,
     this.header,
     required this.items,
-    required this.verticalGap,
+    this.verticalGap,
     required this.itemBuilder,
     required this.rowMaxHeight,
   });
 
   final Widget? header;
   final List<Widget> items;
-  final double verticalGap;
+  final double? verticalGap;
   final double rowMaxHeight;
   final Widget? Function(BuildContext context, int index) itemBuilder;
 
