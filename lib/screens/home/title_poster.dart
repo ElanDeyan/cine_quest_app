@@ -39,7 +39,7 @@ class _TitlePosterState extends State<TitlePoster> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () =>
-          context.goNamed('media', pathParameters: {'id': '${widget.id}'}),
+          context.goNamed('favorite', pathParameters: {'id': '${widget.id}'}),
       child: FutureBuilder(
         future: _fetchedBytes,
         builder: (context, snapshot) => switch ((
