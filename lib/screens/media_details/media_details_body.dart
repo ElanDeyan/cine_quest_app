@@ -1,8 +1,10 @@
+import 'package:cine_quest_app/constants/platforms.dart';
 import 'package:cine_quest_app/helper/widgets/icon_with_label.dart';
 import 'package:cine_quest_app/models/title_details.dart';
 import 'package:cine_quest_app/providers/title_details_provider.dart';
 import 'package:cine_quest_app/shared/title_poster.dart';
 import 'package:flutter/material.dart';
+import 'package:quiver/strings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TitleDetailsBody extends StatelessWidget {
@@ -59,7 +61,20 @@ class TitleDetailsBody extends StatelessWidget {
                       for (final source in titleDetails.sources)
                         SimpleDialogOption(
                           child: Text(source.name),
-                          onPressed: () => launchUrl(Uri.parse(source.webUrl!)),
+                          onPressed: () async {
+                            final platformUrl =
+                                switch ((isWeb, isAndroid, isIOS)) {
+                              (true, _, _) => source.webUrl,
+                              (_, true, _) => source.androidUrl,
+                              (_, _, true) => source.iosUrl,
+                              _ => source.webUrl,
+                            };
+
+                            if (isNotBlank(platformUrl) &&
+                                await canLaunchUrl(Uri.parse(platformUrl!))) {
+                              await launchUrl(Uri.parse(platformUrl));
+                            }
+                          },
                         ),
                     ],
                   ),
