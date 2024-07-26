@@ -5,6 +5,7 @@ import 'package:cine_quest_app/providers/title_details_provider.dart';
 import 'package:cine_quest_app/shared/title_poster.dart';
 import 'package:flutter/material.dart';
 import 'package:quiver/strings.dart';
+import 'package:string_validator/string_validator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TitleDetailsBody extends StatelessWidget {
@@ -72,7 +73,8 @@ class TitleDetailsBody extends StatelessWidget {
                             };
 
                             if (isNotBlank(platformUrl) &&
-                                await canLaunchUrl(Uri.parse(platformUrl!))) {
+                                platformUrl!.isURL() &&
+                                await canLaunchUrl(Uri.parse(platformUrl))) {
                               await launchUrl(Uri.parse(platformUrl));
                             }
                           },
