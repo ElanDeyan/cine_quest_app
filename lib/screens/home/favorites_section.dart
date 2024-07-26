@@ -26,19 +26,21 @@ class _FavoritesSectionState extends State<FavoritesSection> {
         'Favoritos',
         style: Theme.of(context).textTheme.headlineSmall,
       ),
-      content: SizedBox(
-        height: 300,
-        child: HorizontalList(
-          items: _favorites,
-          itemBuilder: (context, index) => GestureDetector(
-            onTap: () => context.pushNamed('media', extra: _favorites[index]),
-            child: TitlePoster(
-              id: _favorites[index].id,
-              posterUrl: _favorites[index].poster,
+      content: _favorites.isEmpty
+          ? const Center(
+              child: Text('Você ainda não tem favoritos.'),
+            )
+          : HorizontalList(
+              items: _favorites,
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () =>
+                    context.pushNamed('media', extra: _favorites[index]),
+                child: TitlePoster(
+                  id: _favorites[index].id,
+                  posterUrl: _favorites[index].poster,
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }
