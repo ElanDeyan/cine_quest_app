@@ -1,0 +1,185 @@
+const autoCompleteSearchCarsResult = '''
+{
+    "results": [
+        {
+            "name": "Carson's Law",
+            "relevance": 534.26,
+            "type": "tv_series",
+            "id": 3180019,
+            "year": 1983,
+            "result_type": "title",
+            "imdb_id": "tt0078582",
+            "tmdb_id": 11026,
+            "tmdb_type": "tv",
+            "image_url": "https://cdn.watchmode.com/posters/03180019_poster_w185.jpg"
+        },
+        {
+            "name": "Cars",
+            "relevance": 499.04,
+            "type": "movie",
+            "id": 168103,
+            "year": 2006,
+            "result_type": "title",
+            "imdb_id": "tt0317219",
+            "tmdb_id": 920,
+            "tmdb_type": "movie",
+            "image_url": "https://cdn.watchmode.com/posters/0168103_poster_w185.jpg"
+        },
+        {
+            "name": "Cars 3",
+            "relevance": 199.86,
+            "type": "movie",
+            "id": 168105,
+            "year": 2017,
+            "result_type": "title",
+            "imdb_id": "tt3606752",
+            "tmdb_id": 260514,
+            "tmdb_type": "movie",
+            "image_url": "https://cdn.watchmode.com/posters/0168105_poster_w185.jpg"
+        },
+        {
+            "name": "Cars 2",
+            "relevance": 199.67,
+            "type": "movie",
+            "id": 168104,
+            "year": 2011,
+            "result_type": "title",
+            "imdb_id": "tt1216475",
+            "tmdb_id": 49013,
+            "tmdb_type": "movie",
+            "image_url": "https://cdn.watchmode.com/posters/0168104_poster_w185.jpg"
+        },
+        {
+            "name": "Cars on the Road",
+            "relevance": 194.4,
+            "type": "tv_miniseries",
+            "id": 3183455,
+            "year": 2022,
+            "result_type": "title",
+            "imdb_id": "tt11981568",
+            "tmdb_id": 114502,
+            "tmdb_type": "tv",
+            "image_url": "https://cdn.watchmode.com/posters/03183455_poster_w185.jpg"
+        },
+        {
+            "name": "The Cars That Made America",
+            "relevance": 147.99,
+            "type": "tv_miniseries",
+            "id": 518633,
+            "year": 2017,
+            "result_type": "title",
+            "imdb_id": "tt7252092",
+            "tmdb_id": 73295,
+            "tmdb_type": "tv",
+            "image_url": "https://cdn.watchmode.com/posters/0518633_poster_w185.jpg"
+        },
+        {
+            "name": "The Cars That Ate Paris",
+            "relevance": 123.03,
+            "type": "movie",
+            "id": 1382641,
+            "year": 1974,
+            "result_type": "title",
+            "imdb_id": "tt0071282",
+            "tmdb_id": 62761,
+            "tmdb_type": "movie",
+            "image_url": "https://cdn.watchmode.com/posters/01382641_poster_w185.jpg"
+        },
+        {
+            "name": "Carson City",
+            "relevance": 111.01,
+            "type": "movie",
+            "id": 168109,
+            "year": 1952,
+            "result_type": "title",
+            "imdb_id": "tt0044488",
+            "tmdb_id": 72472,
+            "tmdb_type": "movie",
+            "image_url": "https://cdn.watchmode.com/posters/0168109_poster_w185.jpg"
+        },
+        {
+            "name": "Carsten og Gittes Vennevilla",
+            "relevance": 103.53,
+            "type": "tv_series",
+            "id": 3206138,
+            "year": 2009,
+            "result_type": "title",
+            "imdb_id": null,
+            "tmdb_id": 234458,
+            "tmdb_type": "tv",
+            "image_url": "https://cdn.watchmode.com/posters/03206138_poster_w185.jpg"
+        },
+        {
+            "name": "Cars of the Revolution",
+            "relevance": 98.07,
+            "type": "movie",
+            "id": 168107,
+            "year": 2008,
+            "result_type": "title",
+            "imdb_id": "tt1282139",
+            "tmdb_id": 52668,
+            "tmdb_type": "movie",
+            "image_url": "https://cdn.watchmode.com/posters/0168107_poster_w185.jpg"
+        },
+        {
+            "name": "Carson Bigbee: The Pirate of America's Pastime",
+            "relevance": 85.39,
+            "type": "short_film",
+            "id": 2764105,
+            "year": 2023,
+            "result_type": "title",
+            "imdb_id": "tt28807499",
+            "tmdb_id": 1174873,
+            "tmdb_type": "movie",
+            "image_url": "https://cdn.watchmode.com/posters/02764105_poster_w185.jpg"
+        },
+        {
+            "name": "The Cars That Made the World",
+            "relevance": 80.45,
+            "type": "tv_miniseries",
+            "id": 542785,
+            "year": 2020,
+            "result_type": "title",
+            "imdb_id": "tt13592594",
+            "tmdb_id": 114359,
+            "tmdb_type": "tv",
+            "image_url": "https://cdn.watchmode.com/posters/0542785_poster_w185.jpg"
+        },
+        {
+            "name": "Carspotting",
+            "relevance": 73.79,
+            "type": "tv_series",
+            "id": 319997,
+            "year": 2017,
+            "result_type": "title",
+            "imdb_id": "tt7188964",
+            "tmdb_id": 73399,
+            "tmdb_type": "tv",
+            "image_url": "https://cdn.watchmode.com/posters/0319997_poster_w185.jpg"
+        },
+        {
+            "name": "Cars from Ukraine",
+            "relevance": 67.02,
+            "type": "movie",
+            "id": 1751112,
+            "year": 2023,
+            "result_type": "title",
+            "imdb_id": null,
+            "tmdb_id": 1187061,
+            "tmdb_type": "movie",
+            "image_url": "https://cdn.watchmode.com/posters/01751112_poster_w185.jpg"
+        },
+        {
+            "name": "Car's Life: Junkyard Blues",
+            "relevance": 64.97,
+            "type": "tv_movie",
+            "id": 4149231,
+            "year": 2017,
+            "result_type": "title",
+            "imdb_id": null,
+            "tmdb_id": 717808,
+            "tmdb_type": "movie",
+            "image_url": "https://cdn.watchmode.com/posters/04149231_poster_w185.jpg"
+        }
+    ]
+}''';

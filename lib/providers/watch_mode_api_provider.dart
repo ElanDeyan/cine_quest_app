@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cine_quest_app/mocks/autocomplete_search.dart';
 import 'package:cine_quest_app/types/dict.dart';
 import 'package:cine_quest_app/types/json_map.dart';
 import 'package:dio/dio.dart';
@@ -12,7 +13,13 @@ final class WatchModeApiProvider extends ChangeNotifier {
 
   static const _baseUrl = 'https://api.watchmode.com/v1';
 
-  Dio get _client => Dio(BaseOptions(baseUrl: _baseUrl));
+  Dio get _client => Dio(
+        BaseOptions(
+          baseUrl: _baseUrl,
+          responseDecoder: (responseBytes, options, responseBody) =>
+              utf8.decode(responseBytes),
+        ),
+      );
 
   @override
   Future<void> refresh() {
@@ -62,27 +69,40 @@ final class WatchModeApiProvider extends ChangeNotifier {
     required String query,
   }) async {
     try {
-      final response = await _client.get(
-        '/autocomplete-search/?apiKey=$_apiKey&search_type=$type&search_value=$query',
-      );
-
-      if (response.statusCode == 200) {
-        final bodyAsJson =
-            jsonDecode(utf8.decode(response.data.toString().codeUnits))
-                as JsonMap;
-
-        if (bodyAsJson case {"results": final List<dynamic> results}) {
-          return Dict({
-            "results": results
-                .map((result) => JsonMap(result as Dict<dynamic>))
-                .toList(),
-          });
-        }
+      final response =
+          jsonDecode(utf8.decode(autoCompleteSearchCarsResult.codeUnits));
+      if (response case {"results": final List<dynamic> results}) {
+        return Dict(
+          {"results": results.map((item) => item as JsonMap).toList()},
+        );
       }
+      // final response = await _client.get(
+      //   '/autocomplete-search/?apiKey=$_apiKey&search_type=$type&search_value=$query',
+      //   options: Options(
+      //     contentType: 'application/json',
+      //   ),
+      // );
+
+      // if (response.statusCode == 200) {
+      //   print('-' * 10);
+      //   print('Inside provider');
+      //   final bodyAsJson =
+      //       jsonDecode(utf8.decode(response.data.toString().codeUnits))
+      //           as JsonMap;
+      //   print('bodyAsJson: $bodyAsJson');
+      //   if (bodyAsJson case {"results": final List<dynamic> results}) {
+      //     return Dict({
+      //       "results": results
+      //           .map((result) => JsonMap(result as Dict<dynamic>))
+      //           .toList(),
+      //     });
+      //   }
+      // }
 
       return Dict({"results": []});
     } finally {
-      notifyListeners();
+      print('Exiting provider');
+      print('-' * 10);
     }
   }
 
