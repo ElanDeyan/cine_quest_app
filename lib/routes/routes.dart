@@ -1,3 +1,4 @@
+import 'package:cine_quest_app/models/title_details.dart';
 import 'package:cine_quest_app/routes/routes_constants.dart';
 import 'package:cine_quest_app/screens/destinations_data.dart';
 import 'package:cine_quest_app/screens/main_scaffold.dart';
@@ -27,10 +28,10 @@ final routes = GoRouter(
       ),
     ),
     GoRoute(
-      path: '${root}media/:id',
+      path: '${root}media',
       name: 'media',
-      builder: (context, state) => MediaScaffold(
-        mediaId: int.parse(state.pathParameters['id']!),
+      builder: (context, state) => TitleScaffold(
+        titleDetails: state.extra! as TitleDetails,
       ),
     ),
   ],

@@ -1,25 +1,25 @@
-import 'dart:math';
-
-import 'package:faker/faker.dart';
+import 'package:cine_quest_app/constants/box_names.dart';
+import 'package:cine_quest_app/models/title_details.dart';
+import 'package:cine_quest_app/providers/favorites.dart';
+import 'package:cine_quest_app/shared/title_poster.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 
 class FavoritesBody extends StatelessWidget {
   const FavoritesBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final sampleItems = List.generate(
-      50,
-      (index) => index,
-    );
+    final favorites = Hive.box<TitleDetails>(favoritesBoxName).values.toList();
 
     return ListView.builder(
-      itemCount: sampleItems.length,
+      itemCount: favorites.length,
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: _MovieTile(
-          id: index,
+        child: Favorites(
+          favorite: favorites[index],
+          child: const _MovieTile(),
         ),
       ),
     );
@@ -27,14 +27,14 @@ class FavoritesBody extends StatelessWidget {
 }
 
 class _MovieTile extends StatelessWidget {
-  const _MovieTile({super.key, required this.id});
-
-  final int id;
+  const _MovieTile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final favorite = Favorites.of(context).favorite;
+
     return InkWell(
-      onTap: () => context.pushNamed('media', pathParameters: {'id': '$id'}),
+      onTap: () => context.pushNamed('media', extra: favorite),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -63,16 +63,18 @@ class _MovieTileDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Expanded(
+    final favorite = Favorites.of(context).favorite;
+
+    return Expanded(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Title'),
-          SizedBox(
+          Text(favorite.title),
+          const SizedBox(
             height: 5.0,
           ),
-          _MovieTileSubtitle(),
+          const _MovieTileSubtitle(),
         ],
       ),
     );
@@ -86,25 +88,8 @@ class _MoviePoster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      'https://cdn.watchmode.com/posters/03173903_poster_w185.jpg',
-      width: 185,
-      height: 274,
-      loadingBuilder: (context, child, loadingProgress) => const ColoredBox(
-        color: Colors.red,
-        child: SizedBox(
-          width: 185,
-          height: 274,
-        ),
-      ),
-      errorBuilder: (context, error, stackTrace) => const ColoredBox(
-        color: Colors.red,
-        child: SizedBox(
-          width: 185,
-          height: 274,
-        ),
-      ),
-    );
+    final favorite = Favorites.of(context).favorite;
+    return TitlePoster(id: favorite.id, posterUrl: favorite.poster);
   }
 }
 
@@ -113,6 +98,8 @@ class _MovieTileSubtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favorite = Favorites.of(context).favorite;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,7 +109,7 @@ class _MovieTileSubtitle extends StatelessWidget {
             maxWidth: MediaQuery.of(context).size.width * 0.5,
           ),
           child: Text(
-            faker.lorem.sentences(10).join(' '),
+            favorite.plotOverview,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             softWrap: true,
@@ -131,7 +118,7 @@ class _MovieTileSubtitle extends StatelessWidget {
         const SizedBox(
           height: 5.0,
         ),
-        Text('Year: ${faker.date.year(minYear: 2000, maxYear: 2024)}'),
+        Text('Year: ${favorite.year}'),
         const SizedBox(
           height: 5.0,
         ),
@@ -139,7 +126,7 @@ class _MovieTileSubtitle extends StatelessWidget {
         const SizedBox(
           height: 5.0,
         ),
-        _MovieCriticScore(score: Random().nextInt(100)),
+        _MovieCriticScore(score: favorite.criticScore),
       ],
     );
   }
@@ -150,11 +137,13 @@ class _MovieGenres extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favorite = Favorites.of(context).favorite;
+
     return Wrap(
       spacing: 5.0,
       runSpacing: 5.0,
       children: [
-        for (final genre in faker.lorem.words(5))
+        for (final genre in favorite.genreNames)
           Chip(
             labelPadding: const EdgeInsets.all(3.0),
             padding: const EdgeInsets.all(3.0),

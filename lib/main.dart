@@ -2,6 +2,7 @@ import 'package:cine_quest_app/constants/box_names.dart';
 import 'package:cine_quest_app/models/title_details.dart';
 import 'package:cine_quest_app/models/title_source.dart';
 import 'package:cine_quest_app/routes/routes.dart';
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -11,6 +12,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await _setupHive();
+
+  await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 15));
 
   runApp(const MainApp());
 }

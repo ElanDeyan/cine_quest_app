@@ -24,7 +24,7 @@ class TitleDetailsAdapter extends TypeAdapter<TitleDetails> {
       type: fields[4] as String,
       runtimeMinutes: fields[5] as int,
       year: fields[6] as int,
-      endYear: fields[7] as int,
+      endYear: fields[7] as int?,
       releaseDate: fields[8] as String,
       imdbId: fields[9] as String,
       tmdbId: fields[10] as int,

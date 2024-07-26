@@ -1,4 +1,4 @@
-import 'package:cine_quest_app/helper/horizontal_scrollable_section.dart';
+import 'package:cine_quest_app/screens/home/favorites_section.dart';
 import 'package:flutter/material.dart';
 
 class HomeBody extends StatelessWidget {
@@ -6,17 +6,6 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sampleItems = List.generate(
-      50,
-      (index) => const ColoredBox(
-        color: Colors.white,
-        child: SizedBox(
-          width: 185,
-          height: 274,
-        ),
-      ),
-    );
-
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.all(8.0),
@@ -34,16 +23,7 @@ class HomeBody extends StatelessWidget {
           const SizedBox(
             height: 10.0,
           ),
-          HorizontalScrollableSection(
-            header: Text(
-              'Favorites',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            items: sampleItems,
-            verticalGap: 10,
-            rowMaxHeight: 274,
-            itemBuilder: (context, index) => sampleItems[index],
-          ),
+          const FavoritesSection(),
           const SizedBox(
             height: 10,
           ),
