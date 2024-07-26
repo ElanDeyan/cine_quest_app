@@ -22,7 +22,7 @@ class FavoritesSection extends StatelessWidget {
         style: Theme.of(context).textTheme.headlineSmall,
       ),
       content: Selector<DatabaseProvider, UnmodifiableListView<TitleDetails>>(
-        selector: (p0, p1) => p1.favorites,
+        selector: (context, database) => database.favorites,
         builder: (context, favorites, consumerChild) => favorites.isEmpty
             ? const Center(
                 child: Text('Você ainda não tem favoritos.'),
