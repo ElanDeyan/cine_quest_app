@@ -28,26 +28,26 @@ class TitleSource {
   final String? webUrl;
 
   @HiveField(7)
-  final String format;
+  final String? format;
 
   @HiveField(8)
   final double? price;
 
   @HiveField(9)
-  final int? seasons;
+  final int seasons;
 
   @HiveField(10)
-  final int? episodes;
+  final int episodes;
 
   TitleSource({
     required this.sourceId,
     required this.name,
     required this.type,
     required this.region,
-    required this.iosUrl,
-    required this.androidUrl,
-    required this.webUrl,
-    required this.format,
+    this.iosUrl,
+    this.androidUrl,
+    this.webUrl,
+    this.format,
     this.price,
     required this.seasons,
     required this.episodes,
@@ -88,13 +88,13 @@ class TitleSource {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'sourceId': sourceId,
+      'source_id': sourceId,
       'name': name,
       'type': type,
       'region': region,
-      'iosUrl': iosUrl,
-      'androidUrl': androidUrl,
-      'webUrl': webUrl,
+      'ios_url': iosUrl,
+      'android_url': androidUrl,
+      'web_url': webUrl,
       'format': format,
       'price': price,
       'seasons': seasons,
@@ -112,7 +112,7 @@ class TitleSource {
           "ios_url": final String? iosUrl,
           "android_url": final String? androidUrl,
           "web_url": final String? webUrl,
-          "format": final String format,
+          "format": final String? format,
           "price": final double? price,
           "seasons": final int seasons,
           "episodes": final int episodes,

@@ -24,10 +24,10 @@ class TitleSourceAdapter extends TypeAdapter<TitleSource> {
       iosUrl: fields[4] as String?,
       androidUrl: fields[5] as String?,
       webUrl: fields[6] as String?,
-      format: fields[7] as String,
+      format: fields[7] as String?,
       price: fields[8] as double?,
-      seasons: fields[9] as int?,
-      episodes: fields[10] as int?,
+      seasons: fields[9] as int,
+      episodes: fields[10] as int,
     );
   }
 
