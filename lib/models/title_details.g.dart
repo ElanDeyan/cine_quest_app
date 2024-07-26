@@ -38,11 +38,12 @@ class TitleDetailsAdapter extends TypeAdapter<TitleDetails> {
       backdrop: fields[18] as String,
       originalLanguage: fields[19] as String,
       similarTitles: (fields[20] as List).cast<int>(),
-      networks: (fields[21] as List).cast<int>(),
-      networkNames: (fields[22] as List).cast<String>(),
+      networks: (fields[21] as List?)?.cast<int>(),
+      networkNames: (fields[22] as List?)?.cast<String>(),
       trailer: fields[23] as String,
       trailerThumbnail: fields[24] as String,
       relevancePercentile: fields[25] as double,
+      popularityPercentile: fields[27] as double?,
       sources: (fields[26] as List).cast<TitleSource>(),
     );
   }
@@ -50,7 +51,7 @@ class TitleDetailsAdapter extends TypeAdapter<TitleDetails> {
   @override
   void write(BinaryWriter writer, TitleDetails obj) {
     writer
-      ..writeByte(27)
+      ..writeByte(28)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -104,7 +105,9 @@ class TitleDetailsAdapter extends TypeAdapter<TitleDetails> {
       ..writeByte(25)
       ..write(obj.relevancePercentile)
       ..writeByte(26)
-      ..write(obj.sources);
+      ..write(obj.sources)
+      ..writeByte(27)
+      ..write(obj.popularityPercentile);
   }
 
   @override

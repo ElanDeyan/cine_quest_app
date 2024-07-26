@@ -71,10 +71,10 @@ class TitleDetails {
   final List<int> similarTitles;
 
   @HiveField(21)
-  final List<int> networks;
+  final List<int>? networks;
 
   @HiveField(22)
-  final List<String> networkNames;
+  final List<String>? networkNames;
 
   @HiveField(23)
   final String trailer;
@@ -87,6 +87,9 @@ class TitleDetails {
 
   @HiveField(26)
   final List<TitleSource> sources;
+
+  @HiveField(27)
+  final double? popularityPercentile;
 
   TitleDetails({
     required this.id,
@@ -115,6 +118,7 @@ class TitleDetails {
     required this.trailer,
     required this.trailerThumbnail,
     required this.relevancePercentile,
+    required this.popularityPercentile,
     required this.sources,
   });
 
@@ -145,6 +149,7 @@ class TitleDetails {
     String? trailer,
     String? trailerThumbnail,
     double? relevancePercentile,
+    double? popularityPercentile,
     List<TitleSource>? sources,
   }) {
     return TitleDetails(
@@ -174,43 +179,45 @@ class TitleDetails {
       trailer: trailer ?? this.trailer,
       trailerThumbnail: trailerThumbnail ?? this.trailerThumbnail,
       relevancePercentile: relevancePercentile ?? this.relevancePercentile,
+      popularityPercentile: popularityPercentile ?? this.popularityPercentile,
       sources: sources ?? this.sources,
     );
   }
 
   @override
   String toString() {
-    return 'TitleDetails(id: $id, title: $title, originalTitle: $originalTitle, plotOverview: $plotOverview, type: $type, runtimeMinutes: $runtimeMinutes, year: $year, endYear: $endYear, releaseDate: $releaseDate, imdbId: $imdbId, tmdbId: $tmdbId, tmdbType: $tmdbType, genres: $genres, genreNames: $genreNames, userRating: $userRating, criticScore: $criticScore, usRating: $usRating, poster: $poster, backdrop: $backdrop, originalLanguage: $originalLanguage, similarTitles: $similarTitles, networks: $networks, networkNames: $networkNames, trailer: $trailer, trailerThumbnail: $trailerThumbnail, relevancePercentile: $relevancePercentile, sources: $sources)';
+    return 'TitleDetails(id: $id, title: $title, originalTitle: $originalTitle, plotOverview: $plotOverview, type: $type, runtimeMinutes: $runtimeMinutes, year: $year, endYear: $endYear, releaseDate: $releaseDate, imdbId: $imdbId, tmdbId: $tmdbId, tmdbType: $tmdbType, genres: $genres, genreNames: $genreNames, userRating: $userRating, criticScore: $criticScore, usRating: $usRating, poster: $poster, backdrop: $backdrop, originalLanguage: $originalLanguage, similarTitles: $similarTitles, networks: $networks, networkNames: $networkNames, trailer: $trailer, trailerThumbnail: $trailerThumbnail, relevancePercentile: $relevancePercentile, popularityPercentile: $popularityPercentile, sources: $sources)';
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
       'title': title,
-      'originalTitle': originalTitle,
-      'plotOverview': plotOverview,
+      'original_title': originalTitle,
+      'plot_overview': plotOverview,
       'type': type,
-      'runtimeMinutes': runtimeMinutes,
+      'runtime_minutes': runtimeMinutes,
       'year': year,
-      'endYear': endYear,
-      'releaseDate': releaseDate,
-      'imdbId': imdbId,
-      'tmdbId': tmdbId,
-      'tmdbType': tmdbType,
+      'end_year': endYear,
+      'release_date': releaseDate,
+      'imdb_id': imdbId,
+      'tmdb_id': tmdbId,
+      'tmdb_type': tmdbType,
       'genres': genres,
-      'genreNames': genreNames,
-      'userRating': userRating,
-      'criticScore': criticScore,
-      'usRating': usRating,
+      'genre_names': genreNames,
+      'user_rating': userRating,
+      'critic_score': criticScore,
+      'us_rating': usRating,
       'poster': poster,
       'backdrop': backdrop,
-      'originalLanguage': originalLanguage,
-      'similarTitles': similarTitles,
+      'original_language': originalLanguage,
+      'similar_titles': similarTitles,
       'networks': networks,
-      'networkNames': networkNames,
+      'network_names': networkNames,
       'trailer': trailer,
-      'trailerThumbnail': trailerThumbnail,
-      'relevancePercentile': relevancePercentile,
+      'trailer_thumbnail': trailerThumbnail,
+      'relevance_percentile': relevancePercentile,
+      'popularity_percentile': popularityPercentile,
       'sources': sources.map((x) => x.toMap()).toList(),
     };
   }
@@ -239,13 +246,14 @@ class TitleDetails {
           "backdrop": final String backdrop,
           "original_language": final String originalLanguage,
           "similar_titles": final List<dynamic> similarTitlesIds,
-          "networks": final List<dynamic> networksIds,
-          "network_names": final List<dynamic> networkNames,
+          "networks": final List<dynamic>? networksIds,
+          "network_names": final List<dynamic>? networkNames,
           "trailer": final String trailer,
           "trailer_thumbnail": final String trailerThumbnail,
           "relevance_percentile": final double relevancePercentile,
-          "sources": final List<dynamic> sources,
         }) {
+      final sources = map['sources'] as List<dynamic>? ?? <TitleSource>[];
+      final popularityPercentile = map['popularity_percentile'] as double?;
       return TitleDetails(
         id: id,
         title: title,
@@ -269,11 +277,12 @@ class TitleDetails {
         originalLanguage: originalLanguage,
         similarTitles:
             similarTitlesIds.map((item) => int.parse('$item')).toList(),
-        networks: networksIds.map((item) => int.parse('$item')).toList(),
-        networkNames: networkNames.map((item) => '$item').toList(),
+        networks: networksIds?.map((item) => int.parse('$item')).toList(),
+        networkNames: networkNames?.map((item) => '$item').toList(),
         trailer: trailer,
         trailerThumbnail: trailerThumbnail,
         relevancePercentile: relevancePercentile,
+        popularityPercentile: popularityPercentile,
         sources: sources
             .map((item) => TitleSource.fromMap(item as Map<String, dynamic>))
             .toList(),
