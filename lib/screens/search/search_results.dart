@@ -1,12 +1,11 @@
 import 'package:cine_quest_app/models/autocomplete_search_result.dart';
+import 'package:cine_quest_app/models/search_result.dart';
 import 'package:cine_quest_app/providers/watch_mode_api_provider.dart';
 import 'package:cine_quest_app/shared/title_poster.dart';
 import 'package:cine_quest_app/types/dict.dart';
 import 'package:cine_quest_app/types/json_map.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../models/search_result.dart';
 
 class SearchResults extends StatelessWidget {
   const SearchResults({super.key, required this.query});
@@ -69,6 +68,7 @@ class _SearchResultsList extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               TitlePoster(
                 id: searchResults.results[index].id,
@@ -77,8 +77,10 @@ class _SearchResultsList extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              _SearchResultsTileDetails(
-                searchResult: searchResults.results[index],
+              Expanded(
+                child: _SearchResultsTileDetails(
+                  searchResult: searchResults.results[index],
+                ),
               ),
             ],
           ),
@@ -104,6 +106,9 @@ class _SearchResultsTileDetails extends StatelessWidget {
       children: [
         Text(
           searchResult.name,
+          softWrap: true,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 3,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         const SizedBox(
