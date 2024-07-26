@@ -14,9 +14,8 @@ class _HomeBodyState extends State<HomeBody> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(8.0),
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0, right: 8.0, left: 8.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -40,6 +39,7 @@ class _HomeBodyState extends State<HomeBody> {
           const SizedBox(
             height: 10,
           ),
+          const Spacer(),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text('Made with the watchmode API'),
