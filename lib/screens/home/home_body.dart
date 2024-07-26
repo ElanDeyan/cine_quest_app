@@ -1,8 +1,16 @@
 import 'package:cine_quest_app/screens/home/favorites_section.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
+
+  @override
+  State<HomeBody> createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
+  final _searchBarController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +21,14 @@ class HomeBody extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           SearchBar(
+            controller: _searchBarController,
+            onSubmitted: (value) => _searchBarController.text = value,
             trailing: [
               IconButton(
-                onPressed: () {},
+                onPressed: () => context.pushNamed(
+                  'search',
+                  queryParameters: {'query': _searchBarController.text},
+                ),
                 icon: const Icon(Icons.search_outlined),
               ),
             ],
