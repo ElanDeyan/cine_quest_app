@@ -16,7 +16,7 @@ void main() async {
 
   await _setupHive();
 
-  await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 15));
+  await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 5));
 
   final watchModeApiProvider =
       WatchModeApiProvider(apiKey: Env.watchModeApiKey);
