@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:cine_quest_app/constants/box_names.dart';
-import 'package:cine_quest_app/mocks/title_details_response.dart';
 import 'package:cine_quest_app/models/title_details.dart';
 import 'package:cine_quest_app/screens/destinations_data.dart';
 import 'package:cine_quest_app/screens/favorites/favorites_body.dart';
@@ -25,7 +22,7 @@ class MainScaffold extends StatefulWidget {
 
 class _MainScaffoldState extends State<MainScaffold> {
   late int _selectedIndex;
-  List<TitleDetails> _favorites =
+  final List<TitleDetails> _favorites =
       Hive.box<TitleDetails>(favoritesBoxName).values.toList();
 
   @override
@@ -72,21 +69,6 @@ class _MainScaffoldState extends State<MainScaffold> {
               onDestinationSelected: _updateIndex,
             )
           : bodyContent,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final favoritesBox = Hive.box<TitleDetails>(favoritesBoxName);
-
-          favoritesBox.add(
-            TitleDetails.fromMap(
-              jsonDecode(titleDetailsResponse) as Map<String, dynamic>,
-            ),
-          );
-
-          setState(() {
-            _favorites = favoritesBox.values.toList();
-          });
-        },
-      ),
       bottomNavigationBar: isCompactWindowSize
           ? _MainNavigationBar(
               selectedIndex: _selectedIndex,
