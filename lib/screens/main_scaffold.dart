@@ -64,6 +64,9 @@ class _MainScaffoldState extends State<MainScaffold> {
               onDestinationSelected: _updateIndex,
             )
           : bodyContent,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+      ),
       bottomNavigationBar: isCompactWindowSize
           ? _MainNavigationBar(
               selectedIndex: _selectedIndex,

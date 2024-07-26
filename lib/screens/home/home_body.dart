@@ -47,16 +47,6 @@ class HomeBody extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          HorizontalScrollableSection(
-            header: Text(
-              'Últimos lançamentos',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            items: sampleItems,
-            verticalGap: 10,
-            rowMaxHeight: 274,
-            itemBuilder: (context, index) => sampleItems[index],
-          ),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text('Made with the watchmode API'),
