@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:cine_quest_app/mocks/autocomplete_search.dart';
 import 'package:cine_quest_app/types/dict.dart';
 import 'package:cine_quest_app/types/json_map.dart';
 import 'package:dio/dio.dart';
@@ -68,42 +67,35 @@ final class WatchModeApiProvider extends ChangeNotifier {
     int type = 2,
     required String query,
   }) async {
+    // final response = jsonDecode(autoCompleteSearchCarsResult);
+    // if (response case {"results": final List<dynamic> results}) {
+    //   return Dict(
+    //     {"results": results.map((item) => item as JsonMap).toList()},
+    //   );
+    // }
     try {
-      final response =
-          jsonDecode(utf8.decode(autoCompleteSearchCarsResult.codeUnits));
-      if (response case {"results": final List<dynamic> results}) {
-        return Dict(
-          {"results": results.map((item) => item as JsonMap).toList()},
-        );
+      final response = await _client.get<String>(
+        '/autocomplete-search/?apiKey=$_apiKey&search_type=$type&search_value=$query',
+      );
+
+      if (response.statusCode == 200) {
+        print('-' * 10);
+        print('Inside provider');
+        final bodyAsJson = jsonDecode(response.data!) as JsonMap;
+        print('bodyAsJson: $bodyAsJson');
+        if (bodyAsJson case {"results": final List<dynamic> results}) {
+          return Dict({
+            "results": results
+                .map((result) => JsonMap(result as Dict<dynamic>))
+                .toList(),
+          });
+        }
       }
-      // final response = await _client.get(
-      //   '/autocomplete-search/?apiKey=$_apiKey&search_type=$type&search_value=$query',
-      //   options: Options(
-      //     contentType: 'application/json',
-      //   ),
-      // );
-
-      // if (response.statusCode == 200) {
-      //   print('-' * 10);
-      //   print('Inside provider');
-      //   final bodyAsJson =
-      //       jsonDecode(utf8.decode(response.data.toString().codeUnits))
-      //           as JsonMap;
-      //   print('bodyAsJson: $bodyAsJson');
-      //   if (bodyAsJson case {"results": final List<dynamic> results}) {
-      //     return Dict({
-      //       "results": results
-      //           .map((result) => JsonMap(result as Dict<dynamic>))
-      //           .toList(),
-      //     });
-      //   }
-      // }
-
-      return Dict({"results": []});
-    } finally {
-      print('Exiting provider');
-      print('-' * 10);
+    } catch (e) {
+      print(e);
     }
+
+    return Dict({"results": []});
   }
 
   // @override

@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:hive/hive.dart';
@@ -35,10 +34,10 @@ class TitleSource {
   final double? price;
 
   @HiveField(9)
-  final int seasons;
+  final int? seasons;
 
   @HiveField(10)
-  final int episodes;
+  final int? episodes;
 
   TitleSource({
     required this.sourceId,

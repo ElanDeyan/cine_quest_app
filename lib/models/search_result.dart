@@ -5,7 +5,7 @@ class SearchResult {
   final double relevance;
   final String type;
   final int id;
-  final int year;
+  final int? year;
   final String resultType;
   final String? imdbId;
   final int? tmdbId;
@@ -32,7 +32,7 @@ class SearchResult {
           "relevance": final double relevance,
           "type": final String type,
           "id": final int id,
-          "year": final int year,
+          "year": final int? year,
           "result_type": final String resultType,
           "imdb_id": final String? imdbId,
           "tmdb_id": final int? tmdbId,

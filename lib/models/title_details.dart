@@ -26,22 +26,22 @@ class TitleDetails {
   final int runtimeMinutes;
 
   @HiveField(6)
-  final int year;
+  final int? year;
 
   @HiveField(7)
   final int? endYear;
 
   @HiveField(8)
-  final String releaseDate;
+  final String? releaseDate;
 
   @HiveField(9)
-  final String imdbId;
+  final String? imdbId;
 
   @HiveField(10)
-  final int tmdbId;
+  final int? tmdbId;
 
   @HiveField(11)
-  final String tmdbType;
+  final String? tmdbType;
 
   @HiveField(12)
   final List<int> genres;

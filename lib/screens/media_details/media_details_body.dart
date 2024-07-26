@@ -37,9 +37,10 @@ class TitleDetailsBody extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  titleDetails.year.toString(),
-                ),
+                if (titleDetails.year != null)
+                  Text(
+                    titleDetails.year.toString(),
+                  ),
                 const SizedBox(
                   width: 20,
                 ),

@@ -118,7 +118,7 @@ class _MovieTileSubtitle extends StatelessWidget {
         const SizedBox(
           height: 5.0,
         ),
-        Text('Year: ${favorite.year}'),
+        if (favorite.year != null) Text('Year: ${favorite.year}'),
         const SizedBox(
           height: 5.0,
         ),
