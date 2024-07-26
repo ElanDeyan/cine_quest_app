@@ -1,25 +1,28 @@
-import 'package:cine_quest_app/constants/box_names.dart';
+import 'dart:collection';
+
 import 'package:cine_quest_app/models/title_details.dart';
+import 'package:cine_quest_app/providers/database_provider.dart';
 import 'package:cine_quest_app/providers/favorites.dart';
 import 'package:cine_quest_app/shared/title_poster.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 
 class FavoritesBody extends StatelessWidget {
   const FavoritesBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final favorites = Hive.box<TitleDetails>(favoritesBoxName).values.toList();
-
-    return ListView.builder(
-      itemCount: favorites.length,
-      itemBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Favorites(
-          favorite: favorites[index],
-          child: const _MovieTile(),
+    return Selector<DatabaseProvider, UnmodifiableListView<TitleDetails>>(
+      selector: (p0, p1) => p1.favorites,
+      builder: (context, favorites, child) => ListView.builder(
+        itemCount: favorites.length,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Favorites(
+            favorite: favorites[index],
+            child: const _MovieTile(),
+          ),
         ),
       ),
     );
@@ -126,7 +129,8 @@ class _MovieTileSubtitle extends StatelessWidget {
         const SizedBox(
           height: 5.0,
         ),
-        _MovieCriticScore(score: favorite.criticScore),
+        if (favorite.criticScore != null)
+          _MovieCriticScore(score: favorite.criticScore!),
       ],
     );
   }
@@ -139,11 +143,13 @@ class _MovieGenres extends StatelessWidget {
   Widget build(BuildContext context) {
     final favorite = Favorites.of(context).favorite;
 
+    if (favorite.genreNames == null) return const SizedBox.shrink();
+
     return Wrap(
       spacing: 5.0,
       runSpacing: 5.0,
       children: [
-        for (final genre in favorite.genreNames)
+        for (final genre in favorite.genreNames!)
           Chip(
             labelPadding: const EdgeInsets.all(3.0),
             padding: const EdgeInsets.all(3.0),

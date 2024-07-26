@@ -75,6 +75,8 @@ final class WatchModeApiProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       final bodyAsJson = jsonDecode(response.data!) as JsonMap;
 
+      print(bodyAsJson);
+
       return TitleDetails.fromMap(bodyAsJson);
     } else {
       throw Exception();

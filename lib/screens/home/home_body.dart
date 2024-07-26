@@ -1,6 +1,7 @@
 import 'package:cine_quest_app/screens/home/favorites_section.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quiver/strings.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -22,12 +23,17 @@ class _HomeBodyState extends State<HomeBody> {
           SearchBar(
             controller: _searchBarController,
             onSubmitted: (value) => _searchBarController.text = value,
+            keyboardType: TextInputType.text,
             trailing: [
               IconButton(
-                onPressed: () => context.pushNamed(
-                  'search',
-                  queryParameters: {'query': _searchBarController.text},
-                ),
+                onPressed: () {
+                  if (!isBlank(_searchBarController.text)) {
+                    context.pushNamed(
+                      'search',
+                      queryParameters: {'query': _searchBarController.text},
+                    );
+                  }
+                },
                 icon: const Icon(Icons.search_outlined),
               ),
             ],

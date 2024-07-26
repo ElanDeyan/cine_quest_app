@@ -1,49 +1,50 @@
-import 'package:cine_quest_app/constants/box_names.dart';
 import 'package:cine_quest_app/env/env.dart';
-import 'package:cine_quest_app/models/title_details.dart';
-import 'package:cine_quest_app/models/title_source.dart';
+import 'package:cine_quest_app/providers/database_provider.dart';
 import 'package:cine_quest_app/providers/watch_mode_api_provider.dart';
 import 'package:cine_quest_app/routes/routes.dart';
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await _setupHive();
 
   await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 5));
 
   final watchModeApiProvider =
       WatchModeApiProvider(apiKey: Env.watchModeApiKey);
 
-  runApp(_MyAppProvider(watchModeApiProvider: watchModeApiProvider));
-}
+  final localDatabase = DatabaseProvider(database: Hive);
 
-Future<void> _setupHive() async {
-  if (!kIsWeb) {
-    Hive.init((await getApplicationDocumentsDirectory()).path);
-  }
+  await localDatabase.init();
 
-  Hive.registerAdapter<TitleDetails>(TitleDetailsAdapter());
-  Hive.registerAdapter<TitleSource>(TitleSourceAdapter());
-
-  await Hive.openBox<TitleDetails>(favoritesBoxName);
+  runApp(
+    _MyAppProvider(
+      watchModeApiProvider: watchModeApiProvider,
+      database: localDatabase,
+    ),
+  );
 }
 
 final class _MyAppProvider extends StatelessWidget {
-  const _MyAppProvider({required this.watchModeApiProvider});
+  const _MyAppProvider({
+    required this.watchModeApiProvider,
+    required this.database,
+  });
 
   final WatchModeApiProvider watchModeApiProvider;
+  final DatabaseProvider database;
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: watchModeApiProvider,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: watchModeApiProvider,
+        ),
+        ChangeNotifierProvider.value(value: database),
+      ],
       builder: (context, child) => child!,
       child: const MainApp(),
     );

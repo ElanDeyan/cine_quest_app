@@ -45,47 +45,49 @@ class TitleDetailsBody extends StatelessWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                IconWithLabel(
-                  icon: const Icon(Icons.grade_outlined),
-                  label: Text(titleDetails.criticScore.toString()),
-                  gap: 5,
-                ),
+                if (titleDetails.criticScore != null)
+                  IconWithLabel(
+                    icon: const Icon(Icons.grade_outlined),
+                    label: Text(titleDetails.criticScore.toString()),
+                    gap: 5,
+                  ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: FilledButton.icon(
-                onPressed: () => showDialog<void>(
-                  context: context,
-                  builder: (context) => SimpleDialog(
-                    title: const Text('Escolha sua plataforma'),
-                    children: [
-                      for (final source in titleDetails.sources)
-                        SimpleDialogOption(
-                          child: Text(source.name),
-                          onPressed: () async {
-                            final platformUrl =
-                                switch ((isWeb, isAndroid, isIOS)) {
-                              (true, _, _) => source.webUrl,
-                              (_, true, _) => source.androidUrl,
-                              (_, _, true) => source.iosUrl,
-                              _ => source.webUrl,
-                            };
+            if (titleDetails.sources.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: FilledButton.icon(
+                  onPressed: () => showDialog<void>(
+                    context: context,
+                    builder: (context) => SimpleDialog(
+                      title: const Text('Escolha sua plataforma'),
+                      children: [
+                        for (final source in titleDetails.sources)
+                          SimpleDialogOption(
+                            child: Text(source.name),
+                            onPressed: () async {
+                              final platformUrl =
+                                  switch ((isWeb, isAndroid, isIOS)) {
+                                (true, _, _) => source.webUrl,
+                                (_, true, _) => source.androidUrl,
+                                (_, _, true) => source.iosUrl,
+                                _ => source.webUrl,
+                              };
 
-                            if (isNotBlank(platformUrl) &&
-                                platformUrl!.isURL() &&
-                                await canLaunchUrl(Uri.parse(platformUrl))) {
-                              await launchUrl(Uri.parse(platformUrl));
-                            }
-                          },
-                        ),
-                    ],
+                              if (isNotBlank(platformUrl) &&
+                                  platformUrl!.isURL() &&
+                                  await canLaunchUrl(Uri.parse(platformUrl))) {
+                                await launchUrl(Uri.parse(platformUrl));
+                              }
+                            },
+                          ),
+                      ],
+                    ),
                   ),
+                  label: const Text('Assistir agora'),
+                  icon: const Icon(Icons.play_arrow_outlined),
                 ),
-                label: const Text('Assistir agora'),
-                icon: const Icon(Icons.play_arrow_outlined),
               ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
@@ -128,6 +130,8 @@ class _MoviePoster extends StatelessWidget {
   Widget build(BuildContext context) {
     final titleDetails = TitleDetailsProvider.of(context).titleDetails;
 
+    if (titleDetails.poster == null) return const SizedBox.shrink();
+
     return GestureDetector(
       onTap: () => showDialog<void>(
         context: context,
@@ -157,6 +161,8 @@ class _MovieBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final titleDetails = TitleDetailsProvider.of(context).titleDetails;
+
+    if (titleDetails.backdrop == null) return const SizedBox.shrink();
 
     return GestureDetector(
       onTap: () => showDialog<void>(

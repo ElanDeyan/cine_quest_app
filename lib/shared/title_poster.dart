@@ -6,13 +6,15 @@ class TitlePoster extends StatelessWidget {
   const TitlePoster({super.key, required this.id, required this.posterUrl});
 
   final int id;
-  final String posterUrl;
+  final String? posterUrl;
 
   @override
   Widget build(BuildContext context) {
-    if (p.extension(posterUrl) == '.gif') {
+    if (posterUrl == null) return const SizedBox.shrink();
+
+    if (p.extension(posterUrl!) == '.gif') {
       return Image.network(
-        posterUrl,
+        posterUrl!,
         errorBuilder: (context, error, stackTrace) => const SizedBox(
           width: 185,
           height: 274,
@@ -25,7 +27,7 @@ class TitlePoster extends StatelessWidget {
     }
 
     return FastCachedImage(
-      url: posterUrl,
+      url: posterUrl!,
       errorBuilder: (context, error, stackTrace) => const SizedBox(
         width: 185,
         height: 274,

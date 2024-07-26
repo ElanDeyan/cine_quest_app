@@ -44,31 +44,31 @@ class TitleDetails {
   final String? tmdbType;
 
   @HiveField(12)
-  final List<int> genres;
+  final List<int>? genres;
 
   @HiveField(13)
-  final List<String> genreNames;
+  final List<String>? genreNames;
 
   @HiveField(14)
-  final double userRating;
+  final double? userRating;
 
   @HiveField(15)
-  final int criticScore;
+  final int? criticScore;
 
   @HiveField(16)
   final String usRating;
 
   @HiveField(17)
-  final String poster;
+  final String? poster;
 
   @HiveField(18)
-  final String backdrop;
+  final String? backdrop;
 
   @HiveField(19)
   final String originalLanguage;
 
   @HiveField(20)
-  final List<int> similarTitles;
+  final List<int>? similarTitles;
 
   @HiveField(21)
   final List<int>? networks;
@@ -77,10 +77,10 @@ class TitleDetails {
   final List<String>? networkNames;
 
   @HiveField(23)
-  final String trailer;
+  final String? trailer;
 
   @HiveField(24)
-  final String trailerThumbnail;
+  final String? trailerThumbnail;
 
   @HiveField(25)
   final double relevancePercentile;
@@ -231,25 +231,25 @@ class TitleDetails {
           "plot_overview": final String plotOverview,
           "type": final String type,
           "runtime_minutes": final int runtimeMinutes,
-          "year": final int year,
+          "year": final int? year,
           "end_year": final int? endYear,
-          "release_date": final String releaseDate,
-          "imdb_id": final String imdbId,
-          "tmdb_id": final int tmdbId,
-          "tmdb_type": final String tmdbType,
-          "genres": final List<dynamic> genresId,
-          "genre_names": final List<dynamic> genreNames,
-          "user_rating": final double userRating,
-          "critic_score": final int criticScore,
+          "release_date": final String? releaseDate,
+          "imdb_id": final String? imdbId,
+          "tmdb_id": final int? tmdbId,
+          "tmdb_type": final String? tmdbType,
+          "genres": final List<dynamic>? genresId,
+          "genre_names": final List<dynamic>? genreNames,
+          "user_rating": final double? userRating,
+          "critic_score": final int? criticScore,
           "us_rating": final String usRating,
-          "poster": final String poster,
-          "backdrop": final String backdrop,
+          "poster": final String? poster,
+          "backdrop": final String? backdrop,
           "original_language": final String originalLanguage,
-          "similar_titles": final List<dynamic> similarTitlesIds,
+          "similar_titles": final List<dynamic>? similarTitlesIds,
           "networks": final List<dynamic>? networksIds,
           "network_names": final List<dynamic>? networkNames,
-          "trailer": final String trailer,
-          "trailer_thumbnail": final String trailerThumbnail,
+          "trailer": final String? trailer,
+          "trailer_thumbnail": final String? trailerThumbnail,
           "relevance_percentile": final double relevancePercentile,
         }) {
       final sources = map['sources'] as List<dynamic>? ?? <TitleSource>[];
@@ -267,8 +267,8 @@ class TitleDetails {
         imdbId: imdbId,
         tmdbId: tmdbId,
         tmdbType: tmdbType,
-        genres: genresId.map((item) => int.parse('$item')).toList(),
-        genreNames: genreNames.map((item) => '$item').toList(),
+        genres: genresId?.map((item) => int.parse('$item')).toList(),
+        genreNames: genreNames?.map((item) => '$item').toList(),
         userRating: userRating,
         criticScore: criticScore,
         usRating: usRating,
@@ -276,7 +276,7 @@ class TitleDetails {
         backdrop: backdrop,
         originalLanguage: originalLanguage,
         similarTitles:
-            similarTitlesIds.map((item) => int.parse('$item')).toList(),
+            similarTitlesIds?.map((item) => int.parse('$item')).toList(),
         networks: networksIds?.map((item) => int.parse('$item')).toList(),
         networkNames: networkNames?.map((item) => '$item').toList(),
         trailer: trailer,
