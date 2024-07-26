@@ -1,10 +1,13 @@
 import 'package:cine_quest_app/models/autocomplete_search_result.dart';
 import 'package:cine_quest_app/models/search_result.dart';
+import 'package:cine_quest_app/models/title_details.dart';
+import 'package:cine_quest_app/models/title_source.dart';
 import 'package:cine_quest_app/providers/watch_mode_api_provider.dart';
 import 'package:cine_quest_app/shared/title_poster.dart';
 import 'package:cine_quest_app/types/dict.dart';
 import 'package:cine_quest_app/types/json_map.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class SearchResults extends StatelessWidget {
@@ -59,12 +62,37 @@ class _SearchResultsList extends StatelessWidget {
 
   final AutoCompleteSearchResult searchResults;
 
+  Future<void> _requestTitleData(
+    BuildContext context,
+    Future<TitleDetails> Function(int) getTitleDetails,
+    Future<List<TitleSource>> Function(int) getTitleSources,
+    int index,
+  ) async {
+    final [titleDetails as TitleDetails, titleSources as List<TitleSource>] =
+        await Future.wait<Object>([
+      getTitleDetails(searchResults.results[index].id),
+      getTitleSources(searchResults.results[index].id),
+    ]);
+
+    final titleDetailsWithSources =
+        titleDetails.copyWith(sources: titleSources);
+
+    context.pushNamed('media', extra: titleDetailsWithSources);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final watchModeApiProvider =
+        Provider.of<WatchModeApiProvider>(context, listen: false);
+
+    final getTitleDetails = watchModeApiProvider.titleDetails;
+    final getTitleSources = watchModeApiProvider.titleSources;
+
     return ListView.builder(
       itemCount: searchResults.results.length,
       itemBuilder: (context, index) => InkWell(
-        onTap: () {},
+        onTap: () =>
+            _requestTitleData(context, getTitleDetails, getTitleSources, index),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
