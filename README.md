@@ -6,6 +6,9 @@ Então, aqui vai uma solução: o Cine Quest App.
 
 ## Como executar esse projeto em sua máquina local
 
+> [!WARNING]
+> [Este projeto foi desenvolvido com as plataformas Android e Web. Assim, não houve execução em dispositivos iOS.]
+
 1. Este aplicativo foi desenvolvido com Flutter, assim, verifique se você tem o Flutter instalado em sua máquina, executando o seguinte código em um terminal:
 
 ```sh
@@ -75,6 +78,3 @@ Please choose one (or "q" to quit):
 ```
 
 Aguarde e verá o projeto em ação!
-
-> [!WARNING]
-> [Este projeto foi desenvolvido com as plataformas Android e Web. Assim, não houve execução em dispositivos iOS.]
