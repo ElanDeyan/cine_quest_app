@@ -29,8 +29,8 @@ class _MainScaffoldState extends State<MainScaffold> {
   Widget get bodyContent => switch (_selectedIndex) {
         0 => const HomeBody(),
         1 => const FavoritesBody(),
-        _ => const Placeholder(
-            child: Text('Unsupported location index'),
+        _ => Placeholder(
+            child: Text('Unsupported location index: $_selectedIndex'),
           )
       };
 
@@ -51,7 +51,9 @@ class _MainScaffoldState extends State<MainScaffold> {
         leading: const Icon(Icons.movie_creation_outlined),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {});
+            },
             icon: const Icon(Icons.refresh_outlined),
           ),
         ],

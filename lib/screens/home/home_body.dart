@@ -1,32 +1,39 @@
-import 'package:cine_quest_app/helper/horizontal_scrollable_section.dart';
+import 'package:cine_quest_app/screens/home/favorites_section.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:quiver/strings.dart';
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final sampleItems = List.generate(
-      50,
-      (index) => const ColoredBox(
-        color: Colors.white,
-        child: SizedBox(
-          width: 185,
-          height: 274,
-        ),
-      ),
-    );
+  State<HomeBody> createState() => _HomeBodyState();
+}
 
-    return SingleChildScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(8.0),
+class _HomeBodyState extends State<HomeBody> {
+  final _searchBarController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0, right: 8.0, left: 8.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           SearchBar(
+            controller: _searchBarController,
+            onSubmitted: (value) => _searchBarController.text = value,
+            keyboardType: TextInputType.text,
             trailing: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (!isBlank(_searchBarController.text)) {
+                    context.pushNamed(
+                      'search',
+                      queryParameters: {'query': _searchBarController.text},
+                    );
+                  }
+                },
                 icon: const Icon(Icons.search_outlined),
               ),
             ],
@@ -34,29 +41,11 @@ class HomeBody extends StatelessWidget {
           const SizedBox(
             height: 10.0,
           ),
-          HorizontalScrollableSection(
-            header: Text(
-              'Favorites',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            items: sampleItems,
-            verticalGap: 10,
-            rowMaxHeight: 274,
-            itemBuilder: (context, index) => sampleItems[index],
-          ),
+          const FavoritesSection(),
           const SizedBox(
             height: 10,
           ),
-          HorizontalScrollableSection(
-            header: Text(
-              'Últimos lançamentos',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            items: sampleItems,
-            verticalGap: 10,
-            rowMaxHeight: 274,
-            itemBuilder: (context, index) => sampleItems[index],
-          ),
+          const Spacer(),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text('Made with the watchmode API'),

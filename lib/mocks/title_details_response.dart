@@ -1,0 +1,61 @@
+const titleDetailsResponse = '''
+{
+    "id": 1625858,
+    "title": "Pelé",
+    "original_title": "Pelé",
+    "plot_overview": "Against the backdrop of a turbulent era in Brazil, this documentary captures Pelé's extraordinary path from breakthrough talent to national hero. Mixing rare archival footage and exclusive interviews, this documentary celebrates the legendary Brazilian footballer who personified football as art.",
+    "type": "movie",
+    "runtime_minutes": 108,
+    "year": 2021,
+    "end_year": null,
+    "release_date": "2021-02-23",
+    "imdb_id": "tt13842562",
+    "tmdb_id": 785976,
+    "tmdb_type": "movie",
+    "genres": [
+        6
+    ],
+    "genre_names": [
+        "Documentary"
+    ],
+    "user_rating": 7.2,
+    "critic_score": 72,
+    "us_rating": "PG-13",
+    "poster": "https://cdn.watchmode.com/posters/01625858_poster_w185.jpg",
+    "backdrop": "https://cdn.watchmode.com/backdrops/01625858_bd_w780.jpg",
+    "original_language": "pt",
+    "similar_titles": [
+        118795,
+        187647,
+        1148176,
+        1160804,
+        1166752,
+        1185895,
+        1265450,
+        1265921,
+        1276779,
+        1286135,
+        1312827,
+        1321598,
+        1356039,
+        1361646,
+        1365449,
+        1374101,
+        1391534,
+        1497501,
+        1639927,
+        1691308,
+        1691883,
+        395388,
+        3120563,
+        3129612,
+        3163847
+    ],
+    "networks": null,
+    "network_names": null,
+    "relevance_percentile": 98.604,
+    "popularity_percentile": null,
+    "trailer": "https://www.youtube.com/watch?v=KMyUnyxVB9Q",
+    "trailer_thumbnail": "https://cdn.watchmode.com/video_thumbnails/529060_pthumbnail_320.jpg"
+}
+''';
