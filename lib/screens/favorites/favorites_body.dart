@@ -15,16 +15,20 @@ class FavoritesBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<DatabaseProvider, UnmodifiableListView<TitleDetails>>(
       selector: (context, database) => database.favorites,
-      builder: (context, favorites, child) => ListView.builder(
-        itemCount: favorites.length,
-        itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Favorites(
-            favorite: favorites[index],
-            child: const _MovieTile(),
-          ),
-        ),
-      ),
+      builder: (context, favorites, child) => favorites.isEmpty
+          ? const Center(
+              child: Text('Você nao tem favoritos (ainda!)'),
+            )
+          : ListView.builder(
+              itemCount: favorites.length,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Favorites(
+                  favorite: favorites[index],
+                  child: const _MovieTile(),
+                ),
+              ),
+            ),
     );
   }
 }
