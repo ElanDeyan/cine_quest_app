@@ -44,38 +44,11 @@ final class WatchModeApiProvider extends ChangeNotifier {
     return Dict({"results": []});
   }
 
-  // @override
-  // Future<List<Source>> get sources async {
-  //   try {
-  //     final dataAsJson = jsonDecode(sourcesResponseString);
-
-  //     if (dataAsJson case final List<dynamic> sources) {
-  //       return sources.map((item) => Source.fromJson(item as JsonMap)).toList();
-  //     }
-  //     // final response =
-  //     //     await http.get(Uri.parse('$_baseUrl/sources/?apiKey=$_apiKey'));
-  //     // if (response.statusCode == 200) {
-  //     //   final bodyAsJson = jsonDecode(utf8.decode(response.bodyBytes));
-
-  //     //   if (bodyAsJson case final List<Map<String, dynamic>> list) {
-  //     //     return list.map((item) => Source.fromJson(item as JsonMap)).toList();
-  //     //   }
-  //     // }
-
-  //     debugPrint('Some error occurred');
-  //     return const <Source>[];
-  //   } finally {
-  //     notifyListeners();
-  //   }
-  // }
-
   Future<TitleDetails> titleDetails(int id) async {
     final response =
         await _client.get<String>('/title/$id/details/?apiKey=$_apiKey');
     if (response.statusCode == 200) {
       final bodyAsJson = jsonDecode(response.data!) as JsonMap;
-
-      print(bodyAsJson);
 
       return TitleDetails.fromMap(bodyAsJson);
     } else {
