@@ -14,7 +14,7 @@ class FavoritesBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Selector<DatabaseProvider, UnmodifiableListView<TitleDetails>>(
-      selector: (p0, p1) => p1.favorites,
+      selector: (context, database) => database.favorites,
       builder: (context, favorites, child) => ListView.builder(
         itemCount: favorites.length,
         itemBuilder: (context, index) => Padding(
