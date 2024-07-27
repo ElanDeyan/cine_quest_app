@@ -11,7 +11,28 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
-  final _searchBarController = TextEditingController();
+  late final TextEditingController _searchBarController;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchBarController = TextEditingController();
+  }
+
+  void _onSearchBarSubmit(String query) {
+    if (!isBlank(_searchBarController.text)) {
+      context.pushNamed(
+        'search',
+        queryParameters: {'query': _searchBarController.text},
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _searchBarController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +43,15 @@ class _HomeBodyState extends State<HomeBody> {
         children: [
           SearchBar(
             controller: _searchBarController,
-            onSubmitted: (value) => _searchBarController.text = value,
+            onSubmitted: (value) {
+              _searchBarController.text = value;
+              _onSearchBarSubmit(_searchBarController.text);
+            },
             keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.send,
             trailing: [
               IconButton(
-                onPressed: () {
-                  if (!isBlank(_searchBarController.text)) {
-                    context.pushNamed(
-                      'search',
-                      queryParameters: {'query': _searchBarController.text},
-                    );
-                  }
-                },
+                onPressed: () => _onSearchBarSubmit(_searchBarController.text),
                 icon: const Icon(Icons.search_outlined),
               ),
             ],
